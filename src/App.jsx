@@ -121,21 +121,24 @@ export default function App() {
           </div>
         </div>
         <div className="add flex mx-[250px]">
-          <input
+          <input 
             name={todo.desc}
             value={todo.desc}
             onChange={handleChange}
             type="text"
-            className="mx-2 min-h-[70px] min-w-[400px] my-1 bg-white rounded-2xl"
+            className="mx-2 px-1 min-h-[70px] min-w-[400px] my-1 bg-white rounded-2xl"
           />
           <button
             onClick={handleAdd}
-            disabled={todo.desc.length <= 3}
-            className="bg-green-900 disabled:bg-green-950 text-white rounded-2xl h-[60px] py-2 px-3 mt-[9px]"
+            disabled={todo.desc.length < 5}
+            className="bg-green-900 disabled:bg-green-950 hover:bg-green-800 text-white rounded-2xl h-[60px] py-2 px-3 mt-[9px]"
           >
             Save
           </button>
         </div>
+        {todo.desc.length < 5?todo.desc.length >=1?
+        <div className="text-[14px] font-bold ml-[18vw] text-red-600 ">{5 - todo.desc.length} more characters needed minimum</div>
+          :"":""}
         <div className="line border border-2 mx-[5px] border-green-400 h-[1px]"></div>
         <div className="all mx-[200px]  my-2">
           <div className="flx flex items-center">
