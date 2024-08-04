@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import Nav from "./components/navbar";
 
 export default function App() {
   const [todo, setTodo] = useState({
@@ -76,19 +77,23 @@ export default function App() {
         body: JSON.stringify(todo),
       });
       fetchEverything();
+      if(showDetails != "0000")
+      {
+        fetchOne(single.idd);
+      }
     }
   };
 
 
 
-  const handleEdit = (e, idd) => {
+  const handleEdit =async (e, idd) => {
      if(showDetails != "0000")
      {
       fetchOne(idd);
      }
-    todos.map((item) => {
+    todos.map( (item) => {
       if (item.idd == idd) {
-        setTodo(item);
+      setTodo(item);
       }
     });
   };
@@ -138,6 +143,7 @@ export default function App() {
   };
   return (
     <>
+    <Nav />
      <div className={showDetails=="0000"?"flx":"flx flex"}>
      <div className={showDetails=="0000"?"container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[15vw]":"container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[2vw]"}>
         
@@ -281,7 +287,7 @@ export default function App() {
           })}
         </div>
       </div>
-      {showDetails!="0000" && <div className="side mt-[100px]  rounded-lg p-1 mx-2">
+      {showDetails!="0000" && <div className="side mt-[40px]  rounded-lg p-1 mx-2">
         <button onClick={(e)=>{setShowDetails("0000")}}className="bg-green-950 hover:bg-green-900 text-white font-bold rounded-xl p-2 text-[15px] mb-1">Cancel</button>
         <div  style={{boxShadow:"3px 3px 4px green"}} className="contain rounded-xl   p-2 text-green-800 text-[15px] font-bold bg-white w-[400px] ">{single.desc}</div>
         <div className="buttons  flex justify-between mx-1">
