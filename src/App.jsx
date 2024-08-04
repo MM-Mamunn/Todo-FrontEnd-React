@@ -112,6 +112,7 @@ export default function App() {
   return (
     <>
       <div className="container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[15vw]">
+        
         <div className="text flex items-center  ">
           <div className="logo text-green-700 font-bold text-[32px] mx-2">
             mtask
@@ -139,7 +140,7 @@ export default function App() {
         {todo.desc.length < 5?todo.desc.length >=1?
         <div className="text-[14px] font-bold ml-[18vw] text-red-600 ">{5 - todo.desc.length} more characters needed minimum</div>
           :"":""}
-        <div className="line border border-2 mx-[5px] border-green-400 h-[1px]"></div>
+        <div className="line  border-2 mx-[5px] border-green-400 h-[1px]"></div>
         <div className="all mx-[200px]  my-2">
           <div className="flx flex items-center">
             <input
@@ -151,7 +152,28 @@ export default function App() {
             />
             <div className="px-2  msg2 text-[14px]">Show Finished Task</div>
           </div>
-          <div className="line border border-2 mx-[5px] border-green-400 h-[1px] w-[300px] mb-2 opacity-50"></div>
+          <div className="line  border-2 mx-[5px] border-green-400 h-[1px] w-[300px] mb-2 opacity-50"></div>
+          {!todos.length && (
+            <div className="flex text-green-700 font-bold font-serif text-[70px]">
+              <div className="text "> No data Yet</div>
+              <div className="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.182 16.318A4.486 4.486 0 0 0 12.016 15a4.486 4.486 0 0 0-3.198 1.318M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          )}
           {todos?.map((item) => {
             return (
               (showFinished || !item.isDone) && (
@@ -167,16 +189,16 @@ export default function App() {
                       type="checkbox"
                       checked={item.isDone}
                     />
-                    <div className=" tasks font-bold text-[14px] text-green-800 px-6">
-                      <span
+                    <div className=" tasks w-[400px] font-bold text-[14px] text-green-800 px-6">
+                      <div
                         className={
                           item.isDone
-                            ? "decoration-red-700 decoration-4 line-through"
-                            : ""
+                            ? "decoration-red-700 decoration-4 line-through break-words"
+                            : "break-words"
                         }
                       >
                         {item.desc}
-                      </span>
+                      </div>
                       <sub className="ml-[20px] text-[8px] opacity-45 mt-8">
                         {item.updatedAt}
                       </sub>
@@ -224,7 +246,7 @@ export default function App() {
                       </button>
                     </div>
                   </div>
-                  <div className="line border border-2 border-green-200 h-[1px]"></div>
+                  <div className="line  border-2 border-green-200 h-[1px]"></div>
                 </>
               )
             );
