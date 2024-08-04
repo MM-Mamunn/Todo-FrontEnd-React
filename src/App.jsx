@@ -10,7 +10,8 @@ export default function App() {
   });
   const [todos, setTodos] = useState([]);
   const [showFinished, setshowFinished] = useState(false);
-
+  const [showDetails, setShowDetails] = useState("0000");
+  const [single, setSingle] = useState({});
   const fetchEverything = async () => {
     let a = await fetch("http://localhost:3000/api/task/view");
     a = await a.json();
@@ -22,6 +23,17 @@ export default function App() {
     }));
   };
 
+  const fetchOne= async (idd) => {
+    
+    setShowDetails(idd);
+    let a = await fetch(`http://localhost:3000/api/task/view/${idd}`);
+    a = await a.json();
+    setSingle(a);
+  }
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+ 
   useEffect(() => {
     fetchEverything();
   }, []);
@@ -67,7 +79,13 @@ export default function App() {
     }
   };
 
+
+
   const handleEdit = (e, idd) => {
+     if(showDetails != "0000")
+     {
+      fetchOne(idd);
+     }
     todos.map((item) => {
       if (item.idd == idd) {
         setTodo(item);
@@ -76,6 +94,7 @@ export default function App() {
   };
 
   const handleDelete = (e, idd) => {
+    setShowDetails("0000")
     todos.map(async (item) => {
       if (item.idd == idd) {
         let a = await fetch(`http://localhost:3000/api/task/delete/${idd}`, {
@@ -106,12 +125,21 @@ export default function App() {
       }
     });
   };
+  const toggleSide= async (e,idd) => {
+    setTodo((prevTodo) => ({
+      desc: "",
+      idd: uuidv4(),
+      isDone: false,
+    }));
+    fetchOne(idd);
+  }
   const toggleFinish = () => {
     setshowFinished(!showFinished);
   };
   return (
     <>
-      <div className="container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[15vw]">
+     <div className={showDetails=="0000"?"flx":"flx flex"}>
+     <div className={showDetails=="0000"?"container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[15vw]":"container rounded-2xl py-2   bg-green-100 min-h-[70vh] w-[70vw] mt-[40px] ml-[2vw]"}>
         
         <div className="text flex items-center  ">
           <div className="logo text-green-700 font-bold text-[32px] mx-2">
@@ -189,12 +217,12 @@ export default function App() {
                       type="checkbox"
                       checked={item.isDone}
                     />
-                    <div className=" tasks w-[400px] font-bold text-[14px] text-green-800 px-6">
+                    <button  onClick={(e) => toggleSide(e, item.idd)} className=" tasks  w-[400px] font-bold text-[14px] text-green-800 px-6 ">
                       <div
                         className={
                           item.isDone
-                            ? "decoration-red-700 decoration-4 line-through break-words"
-                            : "break-words"
+                            ? `decoration-red-700     decoration-4 line-through truncate `
+                            : `truncate`
                         }
                       >
                         {item.desc}
@@ -202,7 +230,7 @@ export default function App() {
                       <sub className="ml-[20px] text-[8px] opacity-45 mt-8">
                         {item.updatedAt}
                       </sub>
-                    </div>
+                    </button>
                     <div className="buttons flex justify-between mx-1">
                       <button
                         onClick={(e) => handleEdit(e, item.idd)}
@@ -253,6 +281,53 @@ export default function App() {
           })}
         </div>
       </div>
+      {showDetails!="0000" && <div className="side mt-[100px]  rounded-lg p-1 mx-2">
+        <button onClick={(e)=>{setShowDetails("0000")}}className="bg-green-950 hover:bg-green-900 text-white font-bold rounded-xl p-2 text-[15px] mb-1">Cancel</button>
+        <div  style={{boxShadow:"3px 3px 4px green"}} className="contain rounded-xl   p-2 text-green-800 text-[15px] font-bold bg-white w-[400px] ">{single.desc}</div>
+        <div className="buttons  flex justify-between mx-1">
+                      <button
+                        onClick={(e) => handleEdit(e, showDetails)}
+                        className="edit   m-1 p-[5px] rounded-xl h-[44px] px-[5px] text-green-950 font-bold text-[16px] border-black "
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          handleDelete(e, showDetails);
+                        }}
+                        className="delete  m-1 p-[5px]  text-green-950 rounded-xl h-[44px]  font-bold px-[5px] text-[16px] border-black"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="size-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+        </div>}
+     </div>
     </>
   );
 }
