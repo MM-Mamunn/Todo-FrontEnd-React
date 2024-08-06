@@ -2,10 +2,12 @@
 
 ## This works with this [back end part](https://github.com/MM-Mamunn/Todo-API-express) that is developed with node express.
 
-.Create a react vite project with
+Download node module by the following command
 
 ```
-npm create vite@latest
+npm install
 ```
-
-Select react and javascript by the arrow.
+Run the project by the following command
+```
+npm run dev
+```
