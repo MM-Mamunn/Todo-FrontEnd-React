@@ -14,7 +14,10 @@ export default function App() {
   const [showDetails, setShowDetails] = useState("0000");
   const [single, setSingle] = useState({});
   const fetchEverything = async () => {
-    let a = await fetch("http://localhost:3000/api/task/view");
+    let a = await fetch(
+      "https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/view"
+      // "http://localhost:3000/api/task/view"
+    );
     a = await a.json();
     setTodos(a);
     setTodo((prevTodo) => ({
