@@ -30,7 +30,10 @@ export default function App() {
   const fetchOne= async (idd) => {
     
     setShowDetails(idd);
-    let a = await fetch(`http://localhost:3000/api/task/view/${idd}`);
+    let a = await fetch(
+     `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/view/${idd}`
+      // `http://localhost:3000/api/task/view/${idd}`
+    );
     a = await a.json();
     setSingle(a);
   }
@@ -56,7 +59,10 @@ export default function App() {
     });
 
     if (index >= todos.length || index < 0) {
-      let a = await fetch("http://localhost:3000/api/task/insert/", {
+      let a = await fetch(
+        // "http://localhost:3000/api/task/insert/"
+        "https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/insert"
+        , {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +78,10 @@ export default function App() {
       fetchEverything();
     } else {
       todo.isDone = false;
-      let a = await fetch(`http://localhost:3000/api/task/update/${idd}`, {
+      let a = await fetch(
+        // `http://localhost:3000/api/task/update/${idd}`
+       `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/update/${idd}`
+        , {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +114,10 @@ export default function App() {
     setShowDetails("0000")
     todos.map(async (item) => {
       if (item.idd == idd) {
-        let a = await fetch(`http://localhost:3000/api/task/delete/${idd}`, {
+        let a = await fetch(
+          // `http://localhost:3000/api/task/delete/${idd}`
+         `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/delete/${idd}`
+          , {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -121,7 +133,10 @@ export default function App() {
     todos.map(async (item) => {
       if (item.idd == idd) {
         item.isDone = !item.isDone;
-        let a = await fetch(`http://localhost:3000/api/task/update/${idd}`, {
+        let a = await fetch(
+          // `http://localhost:3000/api/task/update/${idd}`
+         `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/update/${idd}`
+          , {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
