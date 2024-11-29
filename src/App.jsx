@@ -15,7 +15,7 @@ export default function App() {
   const [single, setSingle] = useState({});
   const fetchEverything = async () => {
     let a = await fetch(
-      "https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/view"
+      "https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/view"
       // "http://localhost:3000/api/task/view"
     );
     a = await a.json();
@@ -31,7 +31,7 @@ export default function App() {
     
     setShowDetails(idd);
     let a = await fetch(
-     `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/view/${idd}`
+     `https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/view/${idd}`
       // `http://localhost:3000/api/task/view/${idd}`
     );
     a = await a.json();
@@ -61,7 +61,7 @@ export default function App() {
     if (index >= todos.length || index < 0) {
       let a = await fetch(
         // "http://localhost:3000/api/task/insert/"
-        "https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/insert"
+        "https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/insert"
         , {
         method: "POST",
         headers: {
@@ -80,7 +80,7 @@ export default function App() {
       todo.isDone = false;
       let a = await fetch(
         // `http://localhost:3000/api/task/update/${idd}`
-       `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/update/${idd}`
+       `https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/update/${idd}`
         , {
         method: "PUT",
         headers: {
@@ -116,7 +116,7 @@ export default function App() {
       if (item.idd == idd) {
         let a = await fetch(
           // `http://localhost:3000/api/task/delete/${idd}`
-         `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/delete/${idd}`
+         `https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/delete/${idd}`
           , {
           method: "DELETE",
           headers: {
@@ -135,7 +135,7 @@ export default function App() {
         item.isDone = !item.isDone;
         let a = await fetch(
           // `http://localhost:3000/api/task/update/${idd}`
-         `https://to-do-api-eta.vercel.app/?vercelToolbarCode=_uAxDnNrkCbtelD/api/task/update/${idd}`
+         `https://vercel.com/mamun-mahmuds-projects/to-do-api/AcystnsHn1mEUPRE64npf6xNsjn5/api/task/update/${idd}`
           , {
           method: "PUT",
           headers: {
